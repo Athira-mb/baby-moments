@@ -1,0 +1,1177 @@
+<!DOCTYPE html><html>
+<head>
+<title>Baby Moments 👶</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Segoe UI;}
+
+body{
+  margin:0;
+  background:linear-gradient(#fff5f7,#f5f7fb);
+}
+
+/* CARTOON BACKGROUND (SOFT) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    url("https://cdn-icons-png.flaticon.com/512/3468/3468377.png"),
+    url("https://cdn-icons-png.flaticon.com/512/3468/3468369.png"),
+    url("https://cdn-icons-png.flaticon.com/512/3468/3468306.png"),
+    url("https://cdn-icons-png.flaticon.com/512/3468/3468339.png");
+  background-repeat:no-repeat;
+  background-size:60px,50px,70px,55px;
+  background-position:10% 20%,80% 30%,30% 80%,70% 70%;
+  opacity:0.07;
+  pointer-events:none;
+}
+
+/* TOP BAR */
+.topbar{
+  height:60px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#ff4d6d;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* LOGIN */
+#loginScreen{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-box{
+  background:white;
+  padding:30px;
+  width:320px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+  color:white;
+  cursor:pointer;
+}
+
+/* APP */
+#app{display:none;}
+
+/* LAYOUT */
+.container{display:flex;}
+
+/* GLASS SIDEBAR (TRANSPARENT FIX) */
+.sidebar{
+  width:260px;
+  height:100vh;
+  position:fixed;
+  top:60px;
+  left:0;
+
+
+  /* 👇 ADD MULTIPLE CUTE IMAGES */
+
+
+  background-repeat:no-repeat;
+
+  /* 👇 POSITION THEM NICELY */
+  background-position:
+    bottom 20px center,
+    top 20px left 10px,
+    center right 10px,
+    bottom 80px left 20px;
+
+  /* 👇 SIZE */
+  background-size:80px,50px,60px,40px;
+
+  padding:20px;
+  text-align:center;
+  border-right:1px solid #ffd6e0;
+}
+.sidebar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.6); /* soft fade */
+  z-index:0;
+}
+.sidebar *{
+  position:relative;
+  z-index:1;
+}
+@keyframes floaty{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+  100%{transform:translateY(0);}
+}
+
+.avatar{
+  animation:floaty 3s infinite ease-in-out;
+}
+/* Cute cloud title */
+.sidebar::before{
+  content:"My Baby 👑";
+  display:block;
+  background:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+  margin-bottom:10px;
+  font-weight:bold;
+  color:#ff4d6d;
+}
+
+.avatar{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:6px solid #ffd6e0;
+  object-fit:cover;
+}
+
+.name{
+  font-size:22px;
+  color:#ff4d6d;
+  margin-top:10px;
+}
+
+.age{
+  background:#ffe4ec;
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:20px;
+  margin-top:6px;
+  font-size:13px;
+}
+
+.link{
+  margin-top:15px;
+  padding:12px;
+  border-radius:16px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* Edit Profile */
+.link:nth-child(4){
+  background:#ffe4ec;
+  color:#ff4d6d;
+}
+
+/* Logout */
+.link:nth-child(5){
+  background:#e6d9ff;
+  color:#6a4cff;
+}
+
+/* MAIN */
+.main{
+  margin-left:260px;
+  padding:15px;
+  width: 100%;
+}
+
+/* PANELS */
+.panel{
+  background:#ffffff63;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* UPCOMING BEAUTY */
+#upcoming{
+  background:linear-gradient(155deg, #e8ced266, #ff8fab6e);
+  color:white;
+  font-weight:bold;
+  text-align: center;
+}
+
+/* FEED (MASONRY FEEL) */
+.feed{
+  column-count:3;
+  column-gap:12px;
+}
+
+@media(max-width:1000px){
+  .feed{column-count:2;}
+}
+
+@media(max-width:700px){
+  .feed{column-count:1;}
+  .sidebar{display:none;}
+  .main{margin-left:0;}
+}
+
+/* CARD VARIATIONS */
+.post{
+  break-inside:avoid;
+  background:white;
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:12px;
+  position:relative;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* DIFFERENT SIZES */
+.post:nth-child(3n){transform:scale(1.03);}
+.post:nth-child(5n){transform:scale(0.98);}
+
+.post img{width:100%;display:block;}
+
+.post-body{padding:10px;font-size:13px;}
+
+/* ICONS */
+.icons{
+  position:absolute;
+  top:8px;
+  right:8px;
+  display:flex;
+  gap:6px;
+}
+
+.icon{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* FAB */
+#fab{
+  display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#ff4d6d;
+  color:white;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:white;
+  padding:20px;
+  width:320px;
+  border-radius:14px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:10px;
+  top:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.highlight-card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.12);
+  margin-bottom:15px;
+}
+
+.highlight-card img{
+  width:100%;
+  max-height:320px;
+  object-fit:cover;
+}
+
+.highlight-body{
+  padding:15px;
+}
+
+.highlight-title{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.highlight-date{
+  color:#ff4d6d;
+  font-weight:600;
+  margin-top:5px;
+}
+.mobile-profile{
+  display:none;
+  background:white;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:10px;
+  align-items:center;
+  gap:10px;
+}
+
+.mobile-profile img{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  border:2px solid #ff8fab;
+}
+
+@media(max-width:700px){
+  .mobile-profile{
+    display:flex;  /* ✅ show on mobile */
+  }
+}
+.mobile-header{
+  display:none;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:10px;
+  position:relative;
+}
+
+.mobile-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:2px solid #ff8fab;
+  cursor:pointer;
+}
+
+.mobile-menu{
+  position:absolute;
+  top:55px;
+  right:10px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.mobile-menu div{
+  padding:10px;
+  cursor:pointer;
+}
+
+.mobile-menu div:hover{
+  background:#fff0f3;
+}
+
+/* MOBILE ONLY */
+@media(max-width:700px){
+  .sidebar{display:none;}
+  .mobile-header{display:flex;}
+
+}
+
+.mobile-avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:2px solid #ff8fab;
+}
+
+.mobile-menu{
+  position:absolute;
+  top:55px;
+  right:10px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  display:none;
+  flex-direction:column;
+}
+
+.mobile-menu div{
+  padding:10px;
+  cursor:pointer;
+}
+
+.mobile-menu div:hover{
+  background:#fff0f3;
+}
+
+@media(max-width:700px){
+  .sidebar{display:none;}
+  .mobile-header{display:flex;}
+}
+.mobile-user{
+  display:flex;
+  flex-direction:column;
+}
+
+#mName{
+  font-weight:bold;
+  color:#ff4d6d;
+}
+
+.m-age{
+  font-size:12px;
+  color:#777;
+}/* APP NAME STYLE */
+.app-logo{
+  font-size:50px;
+  margin-bottom:10px;
+}
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#ff4d6d;
+}
+.app-name{
+  font-size:28px;
+  font-weight:800;
+  background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+
+  /* ✅ Standard property */
+  background-clip:text;
+
+  /* ✅ Webkit support */
+  -webkit-background-clip:text;
+
+  /* Make text transparent */
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+
+  margin:5px 0;
+}
+
+.tagline{
+  font-size:13px;
+  color:#888;
+  margin-bottom:15px;
+}
+
+/* LOGIN BOX IMPROVE */
+.login-box{
+  background:white;
+  padding:30px;
+  width:320px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.12);
+  animation:fadeIn 0.6s ease;
+}
+
+/* INPUT STYLE */
+input{
+  transition:0.2s;
+}
+
+input:focus{
+  border-color:#ff8fab;
+  box-shadow:0 0 0 2px #ffd6e0;
+  outline:none;
+}
+
+/* BUTTON */
+button{
+  margin-top:10px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.error{
+  border:1px solid red;
+}
+button:disabled{
+  background:#ccc !important;
+  cursor:not-allowed;
+  transform:none !important;
+  opacity:0.7;
+}
+/* ERROR STYLE */
+.input-error{
+  border:1px solid #ff4d6d !important;
+  background:#fff0f3;
+}
+
+.error-text{
+  color:#ff4d6d;
+  font-size:12px;
+  text-align:left;
+  margin-top:-5px;
+  margin-bottom:5px;
+}
+input[type="date"]::before{
+  content: attr(data-date);
+  color:#555;
+}
+
+input[type="date"]:focus::before,
+input[type="date"]:valid::before{
+  content:"";
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+<div class="app-logo">👶</div>
+
+<h1 class="app-name">Baby Moments ✨</h1>
+
+<p class="tagline">Capture every tiny miracle 💖</p>
+    <input id="loginName" placeholder="Name">
+    <input id="loginEmail" placeholder="Email" type="password">
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+<div class="topbar">👶 Baby Moments</div>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <img id="avatar" class="avatar">
+  <div class="name" id="babyName"></div>
+  <div class="age" id="babyAge"></div>
+
+  <div class="link" onclick="openProfile()">Add/Edit Profile</div>
+  <div class="link" onclick="logout()">Logout</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+<div class="mobile-header">
+<div class="mobile-user">
+  <div id="mName"></div>
+  <div id="mAge" class="m-age"></div>
+</div>
+  <img id="mAvatar" class="mobile-avatar" onclick="toggleMenu()">
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div onclick="openProfile()">👶 Add/Edit Profile</div>
+    <div onclick="logout()">🚪 Logout</div>
+  </div>
+</div>
+<div id="upcoming" class="panel"></div>
+<div id="suggestions" class="panel"></div>
+<div id="recentHighlight" class="panel"></div>
+<div class="feed" id="feed"></div>
+</div>
+<div id="fab" onclick="openAdd()">+</div>
+
+<!-- ADD -->
+<div class="modal" id="addModal">
+  <div class="box">
+    <div class="close" onclick="addModal.style.display='none'">✖</div>
+    <h3>Add Milestone</h3>
+    <input id="text" placeholder="Add new milestone">
+    <small style="color:#888;">📅 Select milestone date</small>
+<input type="date" id="date" required>
+    <input id="img" type="file">
+    <button onclick="save()">Save</button>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- FAB -->
+
+
+<script>
+ const mobileHeader = document.querySelector(".mobile-header");
+
+let userKey="";
+let data=[];
+let editIndex=null;
+
+/* LOGIN */
+function login(){
+
+  let valid = true;
+
+  clearError(loginName);
+  clearError(loginEmail);
+
+  if(!loginName.value.trim()){
+    showError(loginName, "Enter your name");
+    valid = false;
+  }
+
+  if(!loginEmail.value.trim()){
+    showError(loginEmail, "Enter your email");
+    valid = false;
+  } else if(!loginEmail.value.includes("@")){
+    showError(loginEmail, "Invalid email");
+    valid = false;
+  }
+
+  if(!valid) return;
+
+  userKey = "user_"+loginName.value+"_"+loginEmail.value;
+  localStorage.setItem("userKey", userKey);
+
+  loginScreen.style.display="none";
+  app.style.display="block";
+  fab.style.display="flex";
+
+  load();
+}
+
+/* LOGOUT */
+function logout(){
+  localStorage.removeItem("userKey");
+  location.reload();
+}
+
+/* EMOTIONAL AI */
+function ai(text){
+
+  const t = text.toLowerCase();
+
+  const captions = {
+
+    smile: [
+      "😊 That first smile… melted our hearts forever 💖",
+      "🥹 A tiny smile, a lifetime of happiness",
+      "✨ Your smile is our sunshine"
+    ],
+
+    laugh: [
+      "😂 That laugh is our favorite sound 💕",
+      "🥰 Giggles that fill our hearts",
+      "✨ Pure joy in every little laugh"
+    ],
+
+    crawl: [
+      "🐾 Off you go, little explorer!",
+      "🥹 Tiny hands, big adventures",
+      "✨ The world just became your playground"
+    ],
+
+    walk: [
+      "🚶 Those first steps… we’ll never forget",
+      "🥹 You walked into a whole new world",
+      "✨ Small steps, big milestone"
+    ],
+
+    tooth: [
+      "🦷 That tiny tooth made your smile even cuter 💖",
+      "🥰 Growing up, one little tooth at a time",
+      "✨ A small tooth, a big milestone"
+    ],
+
+    birthday: [
+      "🎂 One year of love, laughter, and magic 💖",
+      "🥹 365 days of pure joy",
+      "✨ Our baby turned ONE today!"
+    ],
+
+    food: [
+      "🥣 First bites, forever memories",
+      "🥹 Messy face, happy heart",
+      "✨ Discovering new tastes!"
+    ],
+
+    sit: [
+      "🪑 Sitting strong like a little star ✨",
+      "🥹 Growing stronger every day",
+      "💖 Look at you sitting all by yourself!"
+    ],
+
+    default: [
+      "💖 A moment to cherish forever",
+      "✨ Memories that will last a lifetime",
+      "🥰 Every day with you is special"
+    ]
+  };
+
+  // 🔍 MATCH KEYWORDS
+  if(t.includes("smile")) return random(captions.smile);
+  if(t.includes("laugh")) return random(captions.laugh);
+  if(t.includes("crawl")) return random(captions.crawl);
+  if(t.includes("walk") || t.includes("step")) return random(captions.walk);
+  if(t.includes("tooth") || t.includes("teeth")) return random(captions.tooth);
+  if(t.includes("birthday") || t.includes("bday")) return random(captions.birthday);
+  if(t.includes("eat") || t.includes("food")) return random(captions.food);
+  if(t.includes("sit")) return random(captions.sit);
+
+  return random(captions.default);
+}
+
+/* 🎲 RANDOM PICK */
+function random(arr){
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/* LOAD */
+function load(){
+
+  let p = JSON.parse(localStorage.getItem(userKey+"_profile")) || {};
+  data = JSON.parse(localStorage.getItem(userKey+"_data")) || [];
+
+  const hasDOB = p.dob && p.dob !== "";
+  const hasMilestones = data.length > 0;
+
+  babyName.innerText = p.name || "";
+mName.innerText = babyName.innerText;
+
+avatar.src = p.photo ||   "https://cdn-icons-png.flaticon.com/512/3468/3468339.png";
+mAvatar.src = avatar.src;
+
+  /* RESET */
+  upcoming.style.display = "none";
+  suggestions.style.display = "none";
+  recentHighlight.style.display = "none";
+  feed.style.display = "none";
+
+  /* 🌸 NEW USER */
+  
+ if(!hasDOB && !hasMilestones){
+
+    recentHighlight.innerHTML = `
+      <div style="text-align:center; padding:50px;">
+        <div style="font-size:65px;">👶✨</div>
+
+        <h2 style="color:#ff4d6d;">
+          Welcome to Baby Moments 💖
+        </h2>
+
+        <p style="color:#777;">
+          Start capturing your baby's journey<br>
+          Add profile & milestones to begin 🌸
+        </p>
+      </div>
+    `;
+
+    recentHighlight.style.display = "block";
+    return;
+  }
+    /* 🎂 DOB */
+  if(hasDOB){
+
+    let m = Math.floor((new Date()-new Date(p.dob))/(1000*60*60*24*30));
+    babyAge.innerText = m + " months";
+    mAge.innerText = babyAge.innerText;
+
+    upcoming.innerHTML = `
+      ${
+        m<3 ? "😊 Baby may start smiling soon 💖" :
+        m<6 ? "🔄 Rolling phase begins 🍼" :
+        m<9 ? "🐾 Crawling stage 🥹" :
+        "🚶 Walking soon ✨"
+      }
+    `;
+
+    let tips = getMilestoneSuggestions(m);
+
+suggestions.innerHTML = `
+  💡 <b>Smart Milestones</b><br><br>
+  ${tips.map(t => "• " + t).join("<br>")}
+`;
+
+    upcoming.style.display = "block";
+    suggestions.style.display = "block";
+  }
+
+  /* 📸 MILESTONES */
+  if(hasMilestones){
+    feed.style.display = "block";
+    showRecentHighlight();
+  }
+
+  render();
+}
+function compressImage(file, callback){
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = e => img.src = e.target.result;
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const maxWidth = 600; // reduce size
+    const scale = maxWidth / img.width;
+
+    canvas.width = maxWidth;
+    canvas.height = img.height * scale;
+
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const compressed = canvas.toDataURL("image/jpeg", 0.6); // compress quality
+    callback(compressed);
+  };
+
+  reader.readAsDataURL(file);
+}
+/* SAVE */
+function save(){
+
+  let valid = true;
+
+  clearError(text);
+  clearError(date);
+  clearError(img);
+
+  if(!text.value.trim()){
+    showError(text, "Enter milestone name");
+    valid = false;
+  }
+
+  if(!date.value){
+    showError(date, "Select date");
+    valid = false;
+  }
+
+  if(!img.files[0]){
+    showError(img, "Upload image");
+    valid = false;
+  }
+
+  if(!valid) return;
+
+  // ✅ size check
+  if(img.files[0].size > 3 * 1024 * 1024){
+    showError(img, "Image too large (max 3MB)");
+    return;
+  }
+
+  // ✅ compressed upload
+  compressImage(img.files[0], (compressedImg)=>{
+    const item={
+      text:text.value,
+      date:date.value,
+      img:compressedImg,
+      caption:ai(text.value)
+    };
+
+    if(editIndex!=null){
+      data[editIndex]=item;
+      editIndex=null;
+    }else{
+      data.unshift(item);
+    }
+
+    localStorage.setItem(userKey+"_data",JSON.stringify(data));
+    addModal.style.display="none";
+    load();
+  });
+}
+/* EDIT */
+function edit(i){
+  openAdd();
+  text.value=data[i].text;
+  date.value=data[i].date;
+  editIndex=i;
+}
+
+/* DELETE */
+function del(i){
+  if(confirm("Delete this memory? 🥺")){
+    data.splice(i,1);
+    localStorage.setItem(userKey+"_data",JSON.stringify(data));
+    load();
+  }
+}
+
+/* RENDER */
+function render(){
+  feed.innerHTML="";
+// 🔽 SORT FIRST
+  data.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  data.forEach((d,i)=>{
+    feed.innerHTML+=`
+      <div class="post">
+        <div class="icons">
+          <div class="icon" onclick="edit(${i})">✏️</div>
+          <div class="icon" onclick="del(${i})">🗑</div>
+        </div>
+
+        ${d.img ? `<img src="${d.img}">` : ""}
+
+        <div class="post-body">
+          <b>${d.text}</b><br>
+
+          <!-- DATE ADDED HERE -->
+          <small style="color:#888;">
+            📅 ${d.date ? d.date : "No date"}
+          </small>
+
+          <br>
+          <small>${d.caption || ""}</small>
+        </div>
+      </div>
+    `;
+  });
+}
+function fixDateInput(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+
+  el.addEventListener("change", function(){
+    this.setAttribute(
+      "data-date",
+      new Date(this.value).toLocaleDateString()
+    );
+  });
+}
+function openAdd(){
+  text.value="";
+  date.value="";
+  img.value="";
+  addModal.style.display="flex";
+
+  // ✅ attach date fix AFTER modal opens
+  setTimeout(()=>{
+    fixDateInput("date");
+  },100);
+}
+function openProfile(){
+  const p = JSON.parse(localStorage.getItem(userKey+"_profile")) || {};
+
+  pname.value = p.name || "";
+  pdob.value = p.dob || "";
+
+  profileModal.style.display = "flex";
+
+  // ✅ only hide mobile menu (not sidebar)
+  mobileMenu.style.display = "none";
+}
+
+function saveProfile(){
+
+  let valid = true;
+
+  clearError(pname);
+  clearError(pdob);
+
+  if(!pname.value.trim()){
+    showError(pname, "Enter baby name");
+    valid = false;
+  }
+
+  if(!pdob.value){
+    showError(pdob, "Select date of birth");
+    valid = false;
+  }
+
+  if(!valid) return;
+
+  const r = new FileReader();
+
+  r.onload = e=>{
+    const profile = {
+      name: pname.value,
+      dob: pdob.value,
+      photo: e.target.result
+    };
+
+    localStorage.setItem(userKey+"_profile", JSON.stringify(profile));
+
+    profileModal.style.display = "none";
+
+    // ✅ FIX START
+    mobileMenu.style.display = "none";   // close menu
+    //showSidebar();                       // bring UI back
+    // ✅ FIX END
+profileModal.style.display = "none";
+mobileMenu.style.display = "none"; // hide mobile menu
+load();
+  };
+
+  if(pphoto.files[0]) r.readAsDataURL(pphoto.files[0]);
+  else r.onload({target:{result:null}});
+}
+function showRecentHighlight(){
+
+  if(data.length === 0){
+    recentHighlight.style.display = "none";
+    return;
+  }
+
+  const d = data[0];
+
+  recentHighlight.innerHTML = `
+    <h3>🆕 Recent Highlight</h3>
+
+    <div class="highlight-card">
+      ${d.img ? `<img src="${d.img}">` : ""}
+
+      <div class="highlight-body">
+        <div class="highlight-title">${d.text}</div>
+        <div class="highlight-date">📅 ${d.date || ""}</div>
+        <p>${d.caption || ""}</p>
+      </div>
+    </div>
+  `;
+
+  recentHighlight.style.display = "block";
+}
+function toggleMenu(){
+  mobileMenu.style.display =
+    mobileMenu.style.display === "flex" ? "none" : "flex";
+}
+
+function showError(input, message){
+  input.classList.add("input-error");
+
+  let err = input.nextElementSibling;
+
+  if(!err || !err.classList.contains("error-text")){
+    err = document.createElement("div");
+    err.className = "error-text";
+    input.parentNode.insertBefore(err, input.nextSibling);
+  }
+
+  err.innerText = message;
+}
+
+function clearError(input){
+  input.classList.remove("input-error");
+
+  let err = input.nextElementSibling;
+  if(err && err.classList.contains("error-text")){
+    err.remove();
+  }
+}
+function hideSidebar(){
+  document.querySelector(".sidebar").style.display = "none";
+  if(window.innerWidth < 700){
+    document.querySelector(".mobile-header").style.display = "none";
+  }
+}
+
+function showSidebar(){
+  if(window.innerWidth < 700){
+    document.querySelector(".mobile-header").style.display = "flex";
+  }else{
+    document.querySelector(".sidebar").style.display = "block";
+  }
+}
+function closeProfile(){
+  profileModal.style.display = "none";
+}
+function getMilestoneSuggestions(months){
+  let list = [];
+
+  if(months < 1){
+    list.push("👶 Newborn days — capture tiny details 💖");
+  }
+
+  if(months >= 2 && months < 4){
+    list.push("😊 First smile moment coming soon!");
+  }
+
+  if(months >= 4 && months < 6){
+    list.push("🔄 Rolling over milestone expected!");
+  }
+
+  if(months >= 6 && months < 8){
+    list.push("🦷 First teeth may appear soon!");
+    list.push("🥣 Time to try solid foods!");
+  }
+
+  if(months >= 8 && months < 10){
+    list.push("🐾 Crawling adventure begins!");
+  }
+
+  if(months >= 10 && months < 12){
+    list.push("🚶 First steps are near!");
+  }
+
+  if(months === 11){
+    list.push("🎂 First birthday coming soon 🎉");
+  }
+
+  if(months >= 12){
+    list.push("🎉 Toddler stage unlocked!");
+  }
+
+  return list;
+}
+// Fix date display on mobile
+document.getElementById("date").addEventListener("change", function(){
+  this.setAttribute(
+    "data-date",
+    new Date(this.value).toLocaleDateString()
+  );
+});
+window.onload = () => {
+  const saved = localStorage.getItem("userKey");
+  if(saved){
+    userKey = saved;
+    loginScreen.style.display="none";
+    app.style.display="block";
+    fab.style.display="flex";
+    load();
+  }
+};
+</script>
+<!-- PROFILE MODAL -->
+<div class="modal" id="profileModal">
+  <div class="box">
+<!-- ✅ CLOSE BUTTON -->
+    <div class="close" onclick="closeProfile()">✖</div>
+    <h3>👶 Add/Edit Profile</h3>
+
+    <input id="pname" placeholder="Baby Name">
+    <small style="color:#888;">📅 Select date of birth</small>
+    <input id="pdob" type="date" required>
+    <input id="pphoto" type="file">
+
+    <button onclick="saveProfile()">Save Profile</button>
+  </div>
+</div>
+</body>
+</html>
